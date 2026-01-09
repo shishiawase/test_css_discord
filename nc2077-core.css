@@ -1,0 +1,304 @@
+/**
+ * NC2077 Core - Расширенные анимации и эффекты для темы Cyberpunk 2077
+ * Разместите этот файл на вашем хостинге и обновите URL в основной теме
+ */
+
+/* === КЛЮЧЕВЫЕ КАДРЫ АНИМАЦИЙ === */
+
+/* Сканирующая линия (эффект голограммы) */
+@keyframes scan-line {
+  0% {
+    top: -100%;
+    opacity: 0;
+  }
+  10% {
+    opacity: var(--hologram-opacity);
+  }
+  90% {
+    opacity: var(--hologram-opacity);
+  }
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
+/* Пульсация неона */
+@keyframes neon-pulse {
+  0%, 100% {
+    box-shadow: 
+      0 0 5px color-mix(in srgb, var(--cyber-yellow) 20%, transparent),
+      inset 0 0 5px rgba(255, 255, 255, 0.05);
+    opacity: 1;
+  }
+  50% {
+    box-shadow: 
+      0 0 20px color-mix(in srgb, var(--cyber-yellow) 60%, transparent),
+      0 0 40px color-mix(in srgb, var(--cyber-yellow) 30%, transparent),
+      inset 0 0 15px rgba(255, 255, 255, 0.1);
+    opacity: 0.9;
+  }
+}
+
+/* Цифровой дождь (матрица) */
+@keyframes matrix-rain {
+  0% {
+    background-position: 0 0, 0 0;
+  }
+  100% {
+    background-position: 0 100px, 100px 0;
+  }
+}
+
+/* Сканирование голограммы при наведении */
+@keyframes hologram-sweep {
+  0% {
+    left: -100%;
+  }
+  50% {
+    left: 0;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+/* Мерцание поврежденного дисплея */
+@keyframes screen-flicker {
+  0%, 100% { opacity: 1; }
+  5% { opacity: 0.8; }
+  10% { opacity: 1; }
+  15% { opacity: 0.9; }
+  20% { opacity: 1; }
+  32% { opacity: 0.7; }
+  34% { opacity: 1; }
+  65% { opacity: 0.8; }
+  67% { opacity: 1; }
+  85% { opacity: 0.9; }
+}
+
+/* Загрузка данных */
+@keyframes data-stream {
+  0% {
+    background-position: -100% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Вращение шестеренок/элементов интерфейса */
+@keyframes gear-rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* === ДОПОЛНИТЕЛЬНЫЕ ЭФФЕКТЫ === */
+
+/* Эффект поврежденного экрана для ошибок */
+.screen-damage {
+  position: relative;
+  overflow: hidden;
+}
+
+.screen-damage::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    repeating-linear-gradient(
+      0deg,
+      rgba(255, 0, 0, 0.1) 0px,
+      rgba(255, 0, 0, 0.1) 1px,
+      transparent 1px,
+      transparent 3px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 0, 0, 0.05) 0px,
+      rgba(255, 0, 0, 0.05) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+  pointer-events: none;
+  z-index: 10000;
+  animation: screen-flicker 10s infinite;
+  mix-blend-mode: overlay;
+}
+
+/* Эффект потока данных для индикации загрузки */
+.data-stream-effect {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--cyber-cyan) 30%, transparent) 50%,
+    transparent
+  );
+  background-size: 200% 100%;
+  animation: data-stream 2s linear infinite;
+}
+
+/* Вращающиеся элементы интерфейса */
+.gear-rotation {
+  animation: gear-rotate 10s linear infinite;
+}
+
+.gear-rotation-fast {
+  animation: gear-rotate 2s linear infinite;
+}
+
+/* Неоновые текстовые тени */
+.neon-text {
+  text-shadow: 
+    0 0 5px currentColor,
+    0 0 10px currentColor,
+    0 0 20px currentColor,
+    0 0 40px currentColor;
+}
+
+/* Градиентные тексты */
+.gradient-text-yellow {
+  background: linear-gradient(
+    45deg,
+    var(--cyber-yellow),
+    color-mix(in srgb, var(--cyber-yellow) 70%, #ff9500)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-weight: bold;
+}
+
+.gradient-text-cyan {
+  background: linear-gradient(
+    45deg,
+    var(--cyber-cyan),
+    color-mix(in srgb, var(--cyber-cyan) 70%, #00a2ff)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-weight: bold;
+}
+
+/* Ховер-эффекты для интерактивных элементов */
+.cyber-button {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.cyber-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left 0.5s ease;
+}
+
+.cyber-button:hover::before {
+  left: 100%;
+}
+
+/* Адаптация анимаций для разных устройств */
+@media (prefers-reduced-motion: reduce) {
+  @keyframes scan-line {
+    0%, 100% { opacity: 0; }
+    50% { opacity: var(--hologram-opacity); }
+  }
+  
+  .neon-pulse {
+    animation: none;
+    box-shadow: 0 0 10px color-mix(in srgb, var(--cyber-yellow) 40%, transparent);
+  }
+}
+
+/* Специальные эффекты для конкретных элементов Discord */
+
+/* Индикатор записи голосового сообщения */
+[class*="recording"] {
+  animation: neon-pulse 1s ease-in-out infinite !important;
+  border-color: var(--cyber-pink) !important;
+}
+
+/* Индикатор набора текста */
+[class*="typing"] {
+  position: relative;
+}
+
+[class*="typing"]::after {
+  content: "_";
+  animation: terminal-flicker 1s step-end infinite;
+  color: var(--cyber-cyan);
+}
+
+/* Бары прогресса (громкость, загрузка) */
+[class*="slider"] [class*="bar"] {
+  background: linear-gradient(
+    to right,
+    var(--cyber-teal),
+    var(--cyber-cyan),
+    var(--cyber-yellow)
+  ) !important;
+  border-radius: 2px;
+}
+
+[class*="slider"] [class*="grabber"] {
+  background-color: var(--cyber-yellow) !important;
+  border: 2px solid var(--cyber-dark);
+  box-shadow: 0 0 10px var(--cyber-yellow);
+}
+
+/* Уведомления и алерты */
+[class*="notice"] {
+  border-left: 4px solid var(--cyber-yellow) !important;
+  background: linear-gradient(
+    90deg,
+    rgba(243, 239, 25, 0.1),
+    transparent 30%
+  ) !important;
+  animation: neon-pulse 3s ease-in-out infinite;
+}
+
+/* Контекстные меню и поповеры */
+[class*="menu"],
+[class*="popout"] {
+  backdrop-filter: blur(20px) brightness(0.9) !important;
+  border: 1px solid var(--border) !important;
+  border-top: 2px solid var(--cyber-cyan) !important;
+  box-shadow: 
+    0 0 30px rgba(5, 217, 232, 0.3),
+    0 10px 40px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Эмодзи и реакции */
+[class*="reaction"] {
+  border: 1px solid var(--border) !important;
+  transition: all 0.2s ease;
+}
+
+[class*="reaction"]:hover {
+  border-color: var(--cyber-yellow) !important;
+  box-shadow: 0 0 10px var(--cyber-yellow) !important;
+  transform: translateY(-2px);
+}
+
+[class*="reaction"][class*="reacted"] {
+  background: rgba(243, 239, 25, 0.2) !important;
+  border-color: var(--cyber-yellow) !important;
+}
