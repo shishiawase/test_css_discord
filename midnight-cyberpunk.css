@@ -1,0 +1,262 @@
+/**
+ * midnight-cyberpunk.css
+ * Полная базовая тема Midnight с интегрированными киберпанк-модификациями NC2077
+ * @source https://github.com/refact0r/midnight-discord
+ * @modifier shishiawse
+ * @version NC2077
+ */
+
+/* ========== ОРИГИНАЛЬНЫЙ MIDNIGHT.CSS (начало) ========== */
+@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+:root {
+    container-name: root;
+    --custom-guild-list-padding: 12px;
+    --panel-backdrop-filter: none;
+    --border-hover: var(--border-subtle);
+}
+
+body {
+    container-name: body;
+    --font: 'figtree';
+    --code-font: '';
+    --gap: 12px;
+    --divider-thickness: 4px;
+    --border-thickness: 1px;
+    --custom-guild-list-width: calc(var(--guildbar-avatar-size) + var(--custom-guild-list-padding) * 2 + var(--border-thickness) * 2);
+    --border-hover-transition: 0.2s ease;
+}
+
+/* ... (полный код из вашего файла midnight.css, вставьте его сюда) ... */
+/* Вставьте ВЕСЬ код из прикреплённого файла midnight.css, начиная отсюда и до конца файла */
+
+/* ========== КИБЕРПАНК МОДИФИКАЦИИ NC2077 (добавлено в конец) ========== */
+
+/* === КЛЮЧЕВЫЕ КАДРЫ АНИМАЦИЙ ДЛЯ КИБЕРПАНК === */
+@keyframes scan-line {
+  0% { top: -100%; opacity: 0; }
+  10% { opacity: var(--cyber-hologram-opacity, 0.4); }
+  90% { opacity: var(--cyber-hologram-opacity, 0.4); }
+  100% { top: 100%; opacity: 0; }
+}
+
+@keyframes neon-pulse {
+  0%, 100% { 
+    box-shadow: 0 0 5px color-mix(in srgb, var(--cyber-yellow, #f3ef19) 20%, transparent);
+    opacity: 1; 
+  }
+  50% { 
+    box-shadow: 
+      0 0 20px color-mix(in srgb, var(--cyber-yellow, #f3ef19) 60%, transparent),
+      0 0 40px color-mix(in srgb, var(--cyber-yellow, #f3ef19) 30%, transparent);
+    opacity: 0.9; 
+  }
+}
+
+@keyframes hologram-sweep {
+  0% { left: -100%; }
+  50% { left: 0; }
+  100% { left: 100%; }
+}
+
+@keyframes terminal-flicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.9; }
+  51% { opacity: 0.7; }
+  52% { opacity: 0.9; }
+  97% { opacity: 1; }
+  98% { opacity: 0.6; }
+  99% { opacity: 1; }
+}
+
+/* === НОВЫЕ CSS-ПЕРЕМЕННЫЕ ДЛЯ КИБЕРПАНК ТЕМЫ === */
+:root {
+  /* Основные цвета Cyberpunk 2077 */
+  --cyber-yellow: #f3ef19;
+  --cyber-dark: #161b19;
+  --cyber-teal: #78b2b2;
+  --cyber-blue: #547d89;
+  --cyber-pink: #ff2a6d;
+  --cyber-cyan: #05d9e8;
+  
+  /* Настройки эффектов */
+  --cyber-glow-intensity: 1;
+  --cyber-scan-speed: 20s;
+  --cyber-hologram-opacity: 0.4;
+  --cyber-neon-pulse-speed: 3s;
+}
+
+/* === КИБЕРПАНК МОДИФИКАЦИИ СТИЛЕЙ === */
+
+/* Голографический эффект для панелей */
+.container-2RRFHK,
+.sidebar-2K8pFh,
+.scrollableContainer-2NUZem {
+  position: relative;
+  overflow: hidden;
+}
+
+.container-2RRFHK::before,
+.sidebar-2K8pFh::before {
+  content: "";
+  position: absolute;
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    var(--cyber-cyan, #05d9e8) 20%,
+    var(--cyber-cyan, #05d9e8) 80%,
+    transparent
+  );
+  animation: scan-line var(--cyber-scan-speed, 20s) linear infinite;
+  z-index: 9999;
+  opacity: var(--cyber-hologram-opacity, 0.4);
+  box-shadow: 0 0 10px var(--cyber-cyan, #05d9e8);
+  pointer-events: none;
+}
+
+/* Неоновое свечение активных элементов */
+.selected-aXhQR6,
+.active-1xglHA {
+  animation: neon-pulse var(--cyber-neon-pulse-speed, 3s) ease-in-out infinite;
+  position: relative;
+}
+
+/* Стиль поля ввода в терминальном стиле */
+.channelTextArea-1VQBuV {
+  border: 1px solid var(--cyber-teal, #78b2b2) !important;
+  background: linear-gradient(
+    145deg,
+    rgba(22, 27, 25, 0.9),
+    rgba(30, 36, 34, 0.9)
+  ) !important;
+  border-radius: 4px;
+}
+
+.channelTextArea-1VQBuV:focus-within {
+  border-color: var(--cyber-yellow, #f3ef19) !important;
+  box-shadow: 
+    0 0 20px color-mix(in srgb, var(--cyber-yellow, #f3ef19) 40%, transparent),
+    inset 0 0 15px rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Мерцание текста как в терминале */
+.channelTextArea-1VQBuV textarea {
+  animation: terminal-flicker 5s infinite;
+  animation-timing-function: steps(1, end);
+}
+
+/* Киберпанк скроллбары */
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    to bottom,
+    var(--cyber-teal, #78b2b2),
+    var(--cyber-blue, #547d89)
+  ) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    to bottom,
+    var(--cyber-yellow, #f3ef19),
+    color-mix(in srgb, var(--cyber-yellow, #f3ef19) 70%, #000)
+  ) !important;
+  box-shadow: 0 0 10px var(--cyber-yellow, #f3ef19) !important;
+}
+
+/* Сообщения с эффектом голограммы при наведении */
+.message-2CShn3 {
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.message-2CShn3:hover {
+  border-left-color: var(--cyber-cyan, #05d9e8) !important;
+  transform: translateX(2px);
+}
+
+.message-2CShn3:hover::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(5, 217, 232, 0.1),
+    transparent
+  );
+  animation: hologram-sweep 1.5s ease-in-out;
+}
+
+/* Киберпанк кнопки */
+.button-1EGGcP:hover {
+  border-color: var(--cyber-yellow, #f3ef19) !important;
+  box-shadow: 
+    0 0 15px color-mix(in srgb, var(--cyber-yellow, #f3ef19) 30%, transparent),
+    0 0 30px color-mix(in srgb, var(--cyber-yellow, #f3ef19) 10%, transparent) !important;
+  transform: translateY(-1px);
+}
+
+/* Верхняя панель с размытием */
+.typeWindows-2-gLbG {
+  backdrop-filter: blur(15px) brightness(0.9) !important;
+  background: linear-gradient(
+    to right,
+    rgba(22, 27, 25, 0.9),
+    rgba(30, 36, 34, 0.85)
+  ) !important;
+}
+
+/* Статусы в стиле киберпанк */
+:root {
+  --online: #00ff9d;
+  --idle: var(--cyber-yellow, #f3ef19);
+  --dnd: var(--cyber-pink, #ff2a6d);
+  --streaming: #8a2be2;
+  --offline: color-mix(in srgb, var(--cyber-blue, #547d89) 60%, #000);
+}
+
+/* Улучшенные цвета текста для киберпанк */
+@container root style(--colors: on) {
+  body {
+    --text-brand: var(--cyber-yellow, #f3ef19);
+    --text-link: var(--cyber-cyan, #05d9e8);
+    --text-strong: color-mix(in srgb, var(--cyber-yellow, #f3ef19) 20%, var(--text-1));
+  }
+}
+
+/* Адаптация для пользователей с чувствительностью к анимациям */
+@media (prefers-reduced-motion: reduce) {
+  .container-2RRFHK::before,
+  .sidebar-2K8pFh::before,
+  .selected-aXhQR6,
+  .active-1xglHA,
+  .channelTextArea-1VQBuV textarea,
+  .message-2CShn3:hover::before {
+    animation: none !important;
+  }
+  
+  .message-2CShn3:hover {
+    transform: none;
+  }
+}
+
+/* Готовые киберпанк акценты (переопределяют стандартные blue-*) */
+@container root style(--colors: on) {
+  :root {
+    --blue-1: var(--cyber-yellow, #f3ef19);
+    --blue-2: color-mix(in srgb, var(--cyber-yellow, #f3ef19) 85%, #000);
+    --blue-3: color-mix(in srgb, var(--cyber-yellow, #f3ef19) 70%, #000);
+    --blue-4: color-mix(in srgb, var(--cyber-teal, #78b2b2) 80%, #000);
+    --blue-5: color-mix(in srgb, var(--cyber-blue, #547d89) 80%, #000);
+    --accent-new: var(--cyber-pink, #ff2a6d);
+  }
+}
